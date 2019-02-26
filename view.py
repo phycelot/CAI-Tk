@@ -38,6 +38,20 @@ class Screen(Observer):
             x =t*step
             self.canvas.create_line(x,height/2-4,x,height/2+4)
 
+        if(1) :
+            step=(width-10)/steps*1.
+            for t in range(1,steps+2):
+                x =t*step
+                self.canvas.create_line(x,0,x,height)
+
+            step=(height)/steps*1.
+            for t in range(1,steps+2):
+                x =t*step
+                self.canvas.create_line(10,x,width,x)
+
+        
+        
+
     def packing(self) :
         self.canvas.pack()
         self.magnitude.pack()
