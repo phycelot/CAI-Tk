@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 def update_time(self,event):
         self.subject.set_time(self.time.get())
-        ...
+        # ...
 
 def set_time(time) :
         self.time=time

@@ -1,4 +1,4 @@
-from Tkinter import Tk,Toplevel,Canvas,Scale
+from tkinter import Tk,Toplevel,Canvas,Scale
 from observer import *
 from generator import *
 from view import *

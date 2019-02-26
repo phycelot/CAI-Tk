@@ -1,4 +1,4 @@
-from Tkinter import Canvas,Scale
+from tkinter import Canvas,Scale
 from observer import *
 
 class Screen(Observer):
