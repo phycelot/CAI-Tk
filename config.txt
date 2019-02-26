@@ -1,0 +1,7 @@
+*Scale.foreground: black
+*Scale.sliderlength:20
+*scalePhase.label: Phase
+*scaleFrequence.label: Frequence
+*scaleMagnitude.label: Magnitude
+
+

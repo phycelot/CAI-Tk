@@ -5,17 +5,35 @@ class Screen(Observer):
     def __init__(self,parent,bg="white"):
         self.canvas=Canvas(parent,bg=bg)
         print("parent",parent.cget("width"),parent.cget("height"))
+        
         self.magnitude=Scale(parent,length=250,orient="horizontal",
-                         label="Magnitude", sliderlength=20,
+                         name="scaleMagnitude", sliderlength=20,
                          showvalue=0,from_=0,to=5,
                          tickinterval=25)
+
+        self.frequence=Scale(parent,length=250,orient="horizontal",
+                         name="scaleFrequence", sliderlength=20,
+                         showvalue=0,from_=0,to=5,
+                         tickinterval=25)  
+
+        self.phase=Scale(parent,length=250,orient="horizontal",
+                         name="scalePhase", sliderlength=20,
+                         showvalue=0,from_=0,to=5,
+                         tickinterval=25)  
+
     def update(self,model):
         print("View update")
         signal=model.get_signal()
         self.plot_signal(signal)
-
+    
     def get_magnitude(self):
         return self.magnitude
+
+    def get_frequence(self):
+        return self.frequence
+
+    def get_phase(self):
+        return self.phase
         
     def plot_signal(self,signal,color="red"):
         w,h=self.canvas.cget("width"),self.canvas.cget("height")
@@ -28,31 +46,31 @@ class Screen(Observer):
             signal_id = self.canvas.create_line(plot, fill=color, smooth=1, width=3,tags="signal")
         return
 
-    def grid(self, steps):
+    def grid(self, n=4,m=4):
         w,h=self.canvas.cget("width"),self.canvas.cget("height")
         width,height=int(w),int(h)
-        self.canvas.create_line(10,height/2,width,height/2,arrow="last")
-        self.canvas.create_line(10,height-5,10,5,arrow="last")
-        step=(width-10)/steps*1.
-        for t in range(1,steps+2):
-            x =t*step
-            self.canvas.create_line(x,height/2-4,x,height/2+4)
-
-        if(1) :
-            step=(width-10)/steps*1.
-            for t in range(1,steps+2):
+        if(0) : #arrow enable
+            self.canvas.create_line(10,height/2,width,height/2,arrow="last")
+            self.canvas.create_line(10,height-5,10,5,arrow="last")
+            step=(width)/n*1.
+            for t in range(1,n+2):
                 x =t*step
-                self.canvas.create_line(x,0,x,height)
+                self.canvas.create_line(x,height/2-4,x,height/2+4)
 
-            step=(height)/steps*1.
-            for t in range(1,steps+2):
+        if(1) : #grid enable
+            step=(width)/n*1.
+            for t in range(1,n+2):
                 x =t*step
-                self.canvas.create_line(10,x,width,x)
+                self.canvas.create_line(x,0,x,height,tag="grid")
 
-        
-        
+            step=(height)/m*1.
+            for t in range(1,m+2):
+                x =t*step
+                self.canvas.create_line(0,x,width,x,tag="grid")
 
     def packing(self) :
         self.canvas.pack()
         self.magnitude.pack()
+        self.frequence.pack()
+        self.phase.pack()
  
