@@ -2,11 +2,18 @@ class Controller :
     def __init__(self,model,view):
         self.model=model
         self.view=view
+        #Motion
         self.view.get_magnitude().bind("<B1-Motion>",self.update_magnitude)
         self.view.get_frequence().bind("<B1-Motion>",self.update_frequence)
         self.view.get_phase().bind("<B1-Motion>",self.update_phase)
-        self.view.get_canvas().bind("<Configure>",self.resize)
         self.view.get_grid().bind("<B1-Motion>",self.update_grid)
+
+        self.view.get_canvas().bind("<Configure>",self.resize)
+        
+        self.view.get_magnitude().bind("<ButtonRelease>",self.update_magnitude)
+        self.view.get_frequence().bind("<ButtonRelease>",self.update_frequence)
+        self.view.get_phase().bind("<ButtonRelease>",self.update_phase)
+        self.view.get_grid().bind("<ButtonRelease>",self.update_grid)
 
 
     def update_magnitude(self,event):
