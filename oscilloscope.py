@@ -40,13 +40,15 @@ class MainWindow(Frame):
         menubar = MenuBar(self)
         parent.protocol("WM_DELETE_WINDOW", self.exit)
         model=Generator()
-        view=Screen(root)
-        view.grid(8,8)
-        view.update(model)
-        model.attach(view)
-        ctrl=Controller(model,view)
+        self.view=Screen(root)
+        model.attach(self.view)
+        model.set_grid_resolution(8)
+        self.view.grid(model)
+        self.view.update(model)
+
+        ctrl=Controller(model,self.view)
         menubar.pack(expand=1,fill="x",padx=0,pady=0)
-        view.packing()
+        self.view.packing()
         self.model=model
         model.generate_signal()
 
@@ -62,6 +64,8 @@ class MainWindow(Frame):
                 self.model.set_phase(data["parametre"]["phase"])
                 self.model.set_frequence(data["parametre"]["frequence"])
                 self.model.set_magnitude(data["parametre"]["magnitude"])
+                self.model.set_grid_resolution(data["parametre"]["grid"])
+                self.view.grid(self.model)
                 #TODO : update sliders
                 pass
             except TypeError as err:
@@ -75,7 +79,7 @@ class MainWindow(Frame):
         if len(f) > 0:
             print("Sauvegarde en cours dans %s" % f)
             with open(f,"w") as f:
-                json.dump({'parametre':{"phase":self.model.get_phase(),'frequence':self.model.get_frequence(),'magnitude':self.model.get_magnitude()},'signal':self.model.get_signal()},f)
+                json.dump({'parametre':{"grid": self.model.get_grid_resolution(), "phase":self.model.get_phase(),'frequence':self.model.get_frequence(),'magnitude':self.model.get_magnitude()},'signal':self.model.get_signal()},f)
             f.close()
 
     def exit(self):

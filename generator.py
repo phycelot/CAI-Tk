@@ -7,6 +7,7 @@ class Generator(Subject):
         self.signal=[]
         self.a,self.f,self.p=a,f,p
         self.generate_signal()
+        self.grid_resolution = 8
 
     def generate_signal(self):
         del self.signal[0:]
@@ -21,6 +22,12 @@ class Generator(Subject):
         self.a=a
         print("set_magnitude "+str(a))
         self.generate_signal()
+
+    def get_grid_resolution(self):
+        return self.grid_resolution
+
+    def set_grid_resolution(self, value):
+        self.grid_resolution = value
 
     def get_magnitude(self):
         return self.a

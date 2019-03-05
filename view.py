@@ -6,6 +6,9 @@ class Screen(Observer):
         self.canvas=Canvas(parent,bg=bg)
         print("parent",parent.cget("width"),parent.cget("height"))
 
+        self.frequency_value = 5
+        self.magnitude_value = 9
+
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
                          showvalue=0,from_=0,to=9,
@@ -39,8 +42,7 @@ class Screen(Observer):
 
     def get_phase(self):
         return self.phase
-
-    def get_grid(self):
+    def get_grid_slider(self):
         return self.grid_slider
 
     def plot_signal(self,signal,color="red"):
@@ -54,7 +56,13 @@ class Screen(Observer):
             signal_id = self.canvas.create_line(plot, fill=color, smooth=1, width=3,tags="signal")
         return
 
-    def grid(self, n=4,m=4):
+    def grid(self, model):
+        n = model.get_grid_resolution()
+        self.grid_slider.set(n)
+
+        #n = self.grid_resolution
+        m = n
+
         if self.canvas.find_withtag("grid"):
             self.canvas.delete("grid")
         w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
