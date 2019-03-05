@@ -39,7 +39,9 @@ class MainWindow(Frame):
         parent.protocol("WM_DELETE_WINDOW", self.exit)
         model1=Generator()
         model2=Generator()
-        modelList=[model1,model2]
+        modelList=[model1,model2] #2 signaux
+        print("nombre de signaux")
+        print(len(modelList))
         view=Screen(root)
         view.grid(12,12)
         view.update(modelList)

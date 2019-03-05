@@ -1,4 +1,4 @@
-from tkinter import Canvas,Scale
+from tkinter import Canvas,Scale,ttk
 from observer import *
 import types
 
@@ -7,26 +7,47 @@ class Screen(Observer):
         self.canvas=Canvas(parent,bg=bg)
         # print("parent",parent.cget("width"),parent.cget("height"))
 
-        self.magnitude=Scale(parent,length=250,orient="horizontal",
-                         name="scaleMagnitude", sliderlength=20,
+        self.labelX=ttk.Label(text="X")
+
+        self.magnitudeX=Scale(parent,length=250,orient="horizontal",
+                         name="scaleMagnitudeX", sliderlength=20,
                          showvalue=0,from_=0.1,to=10,
                          tickinterval=1)
 
-        self.frequence=Scale(parent,length=250,orient="horizontal",
-                         name="scaleFrequence", sliderlength=20,
+        self.frequenceX=Scale(parent,length=250,orient="horizontal",
+                         name="scaleFrequenceX", sliderlength=20,
                          showvalue=0,from_=0,to=5,
                          tickinterval=25)
 
-        self.phase=Scale(parent,length=250,orient="horizontal",
-                         name="scalePhase", sliderlength=20,
+        self.phaseX=Scale(parent,length=250,orient="horizontal",
+                         name="scalePhaseX", sliderlength=20,
+                         showvalue=0,from_=0,to=5,
+                         tickinterval=25)
+
+        self.separator=ttk.Separator()
+
+        self.labelY=ttk.Label(text="Y")
+
+        self.magnitudeY=Scale(parent,length=250,orient="horizontal",
+                         name="scaleMagnitudeY", sliderlength=20,
+                         showvalue=0,from_=0.1,to=10,
+                         tickinterval=1)
+
+        self.frequenceY=Scale(parent,length=250,orient="horizontal",
+                         name="scaleFrequenceY", sliderlength=20,
+                         showvalue=0,from_=0,to=5,
+                         tickinterval=25)
+
+        self.phaseY=Scale(parent,length=250,orient="horizontal",
+                         name="scalePhaseY", sliderlength=20,
                          showvalue=0,from_=0,to=5,
                          tickinterval=25)
 
     def update(self,modelList):
         print("View update")
-        color=["red","green","blue","orange"]
+        color=["green","red","blue","orange"]
         i=0
-        if isinstance(modelList,list):
+        if isinstance(modelList,list): #isinstance(modelList,list)
             for e in modelList:
                 signal=e.get_signal()
                 self.plot_signal(signal,color[i])
@@ -39,14 +60,23 @@ class Screen(Observer):
             pass
         
 
-    def get_magnitude(self):
-        return self.magnitude
+    def get_magnitudeX(self):
+        return self.magnitudeX
 
-    def get_frequence(self):
-        return self.frequence
+    def get_frequenceX(self):
+        return self.frequenceX
 
-    def get_phase(self):
-        return self.phase
+    def get_phaseX(self):
+        return self.phaseX
+
+    def get_magnitudeY(self):
+        return self.magnitudeY
+
+    def get_frequenceY(self):
+        return self.frequenceY
+
+    def get_phaseY(self):
+        return self.phaseY
 
     def plot_signal(self,signal,color="red"):
         w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
@@ -85,9 +115,15 @@ class Screen(Observer):
 
     def packing(self) :
         self.canvas.pack(fill = "both", expand = "yes")
-        self.magnitude.pack(fill = "both", expand = "yes")
-        self.frequence.pack(fill = "both", expand = "yes")
-        self.phase.pack(fill = "both", expand = "yes")
+        self.labelX.pack(fill = "both", expand = "yes")
+        self.magnitudeX.pack(fill = "both", expand = "yes")
+        self.frequenceX.pack(fill = "both", expand = "yes")
+        self.phaseX.pack(fill = "both", expand = "yes")
+        self.separator.pack(fill = "both", expand = "yes",padx=8,pady=8)
+        self.labelY.pack(fill = "both", expand = "yes")
+        self.magnitudeY.pack(fill = "both", expand = "yes")
+        self.frequenceY.pack(fill = "both", expand = "yes")
+        self.phaseY.pack(fill = "both", expand = "yes")
 
     def get_canvas(self):
         return self.canvas
