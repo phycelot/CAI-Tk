@@ -8,18 +8,18 @@ class Screen(Observer):
 
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
-                         showvalue=0,from_=0,to=10,
+                         showvalue=0,from_=0,to=9,
                          tickinterval=1)
 
         self.frequence=Scale(parent,length=250,orient="horizontal",
                          name="scaleFrequence", sliderlength=20,
-                         showvalue=0,from_=0,to=5,
-                         tickinterval=1)
+                         showvalue=0,from_=0,to=50,
+                         tickinterval=10)
 
         self.phase=Scale(parent,length=250,orient="horizontal",
                          name="scalePhase", sliderlength=20,
-                         showvalue=0,from_=0,to=5,
-                         tickinterval=1)
+                         showvalue=0,from_=0,to=10,
+                         tickinterval=2)
 
         self.grid_slider=Scale(parent,length=250,orient="horizontal",
                          name="scaleGrid", sliderlength=20,
