@@ -57,13 +57,22 @@ class MainWindow(Frame):
         with open(f,"r") as f:
             data=json.load(f)
             try:
-                self.model.set_phase(data["parametre"]["phase"])
-                self.model.set_frequence(data["parametre"]["frequence"])
-                self.model.set_magnitude(data["parametre"]["magnitude"])
+                self.modelList.clear
+                print(len(data))
+                for e in data :
+                    tmp =Generator()
+                    tmp.set_frequence(e["parametre"]["frequence"])
+                    tmp.set_phase(e["parametre"]["phase"])
+                    tmp.set_magnitude(e["parametre"]["magnitude"])
+                    self.modelList.append(tmp)
+                    pass
                 #TODO : update sliders
                 pass
             except TypeError as err:
-                messagebox.showerror("error","fichier de configuration mal formé\n".format(err))
+                messagebox.showerror("error","fichier de configuration mal formé\nTypeError")
+                pass
+            except KeyError as err:
+                messagebox.showerror("error","fichier de configuration mal formé\nKeyError")
                 pass
             
     
@@ -73,7 +82,11 @@ class MainWindow(Frame):
         if len(f) > 0:
             print("Sauvegarde en cours dans %s" % f)
             with open(f,"w") as f:
-                json.dump({'parametre':{"phase":self.model.get_phase(),'frequence':self.model.get_frequence(),'magnitude':self.model.get_magnitude()},'signal':self.model.get_signal()},f)
+                jsonList=[]
+                for e in self.modelList:
+                    jsonList.append({'parametre':{"phase":e.get_phase(),'frequence':e.get_frequence(),'magnitude':e.get_magnitude()}})
+                    pass
+                json.dump(jsonList,f)
             f.close()
 
     def exit(self):
