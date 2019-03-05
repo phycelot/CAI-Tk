@@ -9,6 +9,7 @@ from controller import *
 class MenuBar(Frame):
     def __init__(self,parent=None):
         Frame.__init__(self, borderwidth=2)
+        
         #file
         button_file = Menubutton(self, text="File")
         button_file.pack(side="left")
@@ -45,12 +46,26 @@ class MainWindow(Frame):
         menubar.pack(expand=1,fill="x",padx=0,pady=0)
         view.packing()
         self.model=model
+        model.generate_signal()
         
     def new(self):
         pass
 
     def open(self):
         formats = [('JSON','*.json')]
+        f = filedialog.askopenfilename(parent=self.parent,filetypes=formats,title="Selectionner la configuration à ouvrir")
+        with open(f,"r") as f:
+            data=json.load(f)
+            try:
+                self.model.set_phase(data["parametre"]["phase"])
+                self.model.set_frequence(data["parametre"]["frequence"])
+                self.model.set_magnitude(data["parametre"]["magnitude"])
+                #TODO : update sliders
+                pass
+            except TypeError as err:
+                messagebox.showerror("error","fichier de configuration mal formé\n".format(err))
+                pass
+            
     
     def save(self):
         formats = [('JSON','*.json')]
@@ -58,7 +73,7 @@ class MainWindow(Frame):
         if len(f) > 0:
             print("Sauvegarde en cours dans %s" % f)
             with open(f,"w") as f:
-                json.dump(self.model.get_signal(),f)
+                json.dump({'parametre':{"phase":self.model.get_phase(),'frequence':self.model.get_frequence(),'magnitude':self.model.get_magnitude()},'signal':self.model.get_signal()},f)
             f.close()
 
     def exit(self):
