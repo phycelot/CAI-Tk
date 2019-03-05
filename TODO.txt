@@ -55,16 +55,16 @@ Deuxieme version : sauvegarde, sortie, menu d'aide
 ==================================================
 Sauvegarde du parametrage d'un signal :
 
- 2-1) menu pour sauvegarder, charger des parametres de courbes
+ 2-1) DONE menu pour sauvegarder, charger des parametres de courbes
       a) dans un nom de fichier par defaut
       b) avec une boite de dialogue
- 2-2) ajouter au menu un item pour la sortie d'application :
+ 2-2) DONE ajouter au menu un item pour la sortie d'application :
       a) sans avertir l'utilisateur
       b) avec boite de dialogue
 
 Menu d'aide :
 
- 2-2) Boite d'information avec (Nom,Prénom, e-mail)  des concepteurs de l'application
+ 2-2) DONE Boite d'information avec (Nom,Prénom, e-mail)  des concepteurs de l'application
  
 Troisieme version : deux signaux
 ================================

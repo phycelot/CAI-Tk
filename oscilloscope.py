@@ -1,4 +1,6 @@
 from tkinter import Tk,Label,Canvas,Frame,Menu,Menubutton,Button,Scale,Scrollbar,filedialog,messagebox
+import json
+
 from observer import *
 from generator import *
 from view import *
@@ -32,7 +34,6 @@ class MainWindow(Frame):
     def __init__(self,parent=None,width=200,height=100,bg="red"):
         Frame.__init__(self)
         self.parent=parent
-        self.x,self.y=0,0
         menubar = MenuBar(self)
         parent.protocol("WM_DELETE_WINDOW", self.exit)
         model=Generator()
@@ -43,19 +44,22 @@ class MainWindow(Frame):
         ctrl=Controller(model,view)
         menubar.pack(expand=1,fill="x",padx=0,pady=0)
         view.packing()
+        self.model=model
         
     def new(self):
         pass
 
-
     def open(self):
-        formats = [('Texte','*.py'),('Portable Network Graphics','*.png')]
+        formats = [('JSON','*.json')]
     
     def save(self):
-        formats = [('Texte','*.py'),('Portable Network Graphics','*.png')]
-        filename = filedialog.asksaveasfilename(parent=self.parent,filetypes=formats,title="Sauvez l'image sous...")
-        if len(filename) > 0:
-          print("Sauvegarde en cours dans %s" % filename)
+        formats = [('JSON','*.json')]
+        f = filedialog.asksaveasfilename(parent=self.parent,filetypes=formats,title="Sauvez l'image sous...")
+        if len(f) > 0:
+            print("Sauvegarde en cours dans %s" % f)
+            with open(f,"w") as f:
+                json.dump(self.model.get_signal(),f)
+            f.close()
 
     def exit(self):
         answer = messagebox.askokcancel("Question","Êtes-vous sur de vouloir quitter ?")
@@ -63,7 +67,7 @@ class MainWindow(Frame):
             self.parent.destroy()
 
     def credit(self):
-        messagebox.showinfo("Crédit","Un grand pouvoir implique de grande résponsabilité")
+        messagebox.showinfo("Crédit","Un grand pouvoir implique de grande résponsabilité\n\n- OLLIVIER Evan\n -> e5ollivi@enib.fr\n\n- PROUTEAU Antonin\n -> a5proute@enib.fr")
         pass
 
 if __name__ =="__main__":
