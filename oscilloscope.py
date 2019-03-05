@@ -9,7 +9,7 @@ from controller import *
 class MenuBar(Frame):
     def __init__(self,parent=None):
         Frame.__init__(self, borderwidth=2)
-        
+
         #file
         button_file = Menubutton(self, text="File")
         button_file.pack(side="left")
@@ -32,14 +32,14 @@ class MenuBar(Frame):
         button_file1.configure(menu=menu_file1)
       
 class MainWindow(Frame):
-    def __init__(self,parent=None,width=200,height=100,bg="red"):
+    def __init__(self,parent=None):
         Frame.__init__(self)
         self.parent=parent
         menubar = MenuBar(self)
         parent.protocol("WM_DELETE_WINDOW", self.exit)
         model=Generator()
         view=Screen(root)
-        view.grid(8,8)
+        view.grid(12,12)
         view.update(model)
         model.attach(view)
         ctrl=Controller(model,view)
@@ -47,9 +47,6 @@ class MainWindow(Frame):
         view.packing()
         self.model=model
         model.generate_signal()
-        
-    def new(self):
-        pass
 
     def open(self):
         formats = [('JSON','*.json')]
