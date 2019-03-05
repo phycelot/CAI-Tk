@@ -51,7 +51,6 @@ class Screen(Observer):
     def plot_signal(self,signal,color="red"):
         w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
         width,height=int(w),int(h)
-#        print(self.canvas.find_withtag("signal"))
         if self.canvas.find_withtag("signal") :
             self.canvas.delete("signal")
         if signal and len(signal) > 1:
