@@ -5,7 +5,7 @@ class Screen(Observer):
     def __init__(self,parent,bg="white"):
         self.canvas=Canvas(parent,bg=bg)
         print("parent",parent.cget("width"),parent.cget("height"))
-        
+
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
                          showvalue=0,from_=0,to=5,
@@ -14,18 +14,18 @@ class Screen(Observer):
         self.frequence=Scale(parent,length=250,orient="horizontal",
                          name="scaleFrequence", sliderlength=20,
                          showvalue=0,from_=0,to=5,
-                         tickinterval=25)  
+                         tickinterval=25)
 
         self.phase=Scale(parent,length=250,orient="horizontal",
                          name="scalePhase", sliderlength=20,
                          showvalue=0,from_=0,to=5,
-                         tickinterval=25)  
+                         tickinterval=25)
 
     def update(self,model):
         print("View update")
         signal=model.get_signal()
         self.plot_signal(signal)
-    
+
     def get_magnitude(self):
         return self.magnitude
 
@@ -34,9 +34,9 @@ class Screen(Observer):
 
     def get_phase(self):
         return self.phase
-        
+
     def plot_signal(self,signal,color="red"):
-        w,h=self.canvas.cget("width"),self.canvas.cget("height")
+        w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
         width,height=int(w),int(h)
 #        print(self.canvas.find_withtag("signal"))
         if self.canvas.find_withtag("signal") :
@@ -47,8 +47,11 @@ class Screen(Observer):
         return
 
     def grid(self, n=4,m=4):
-        w,h=self.canvas.cget("width"),self.canvas.cget("height")
+        if self.canvas.find_withtag("grid"):
+            self.canvas.delete("grid")
+        w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
         width,height=int(w),int(h)
+        print(width, height)
         if(0) : #arrow enable
             self.canvas.create_line(10,height/2,width,height/2,arrow="last")
             self.canvas.create_line(10,height-5,10,5,arrow="last")
@@ -69,8 +72,10 @@ class Screen(Observer):
                 self.canvas.create_line(0,x,width,x,tag="grid")
 
     def packing(self) :
-        self.canvas.pack()
-        self.magnitude.pack()
-        self.frequence.pack()
-        self.phase.pack()
- 
+        self.canvas.pack(fill = "both", expand = "yes")
+        self.magnitude.pack(fill = "both", expand = "yes")
+        self.frequence.pack(fill = "both", expand = "yes")
+        self.phase.pack(fill = "both", expand = "yes")
+
+    def get_canvas(self):
+        return self.canvas
