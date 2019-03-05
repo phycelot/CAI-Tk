@@ -8,18 +8,23 @@ class Screen(Observer):
 
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
-                         showvalue=0,from_=0.1,to=10,
+                         showvalue=0,from_=0,to=10,
                          tickinterval=1)
 
         self.frequence=Scale(parent,length=250,orient="horizontal",
                          name="scaleFrequence", sliderlength=20,
                          showvalue=0,from_=0,to=5,
-                         tickinterval=25)
+                         tickinterval=1)
 
         self.phase=Scale(parent,length=250,orient="horizontal",
                          name="scalePhase", sliderlength=20,
                          showvalue=0,from_=0,to=5,
-                         tickinterval=25)
+                         tickinterval=1)
+
+        self.grid_slider=Scale(parent,length=250,orient="horizontal",
+                         name="scaleGrid", sliderlength=20,
+                         showvalue=4,from_=4,to=16,
+                         tickinterval=1)
 
     def update(self,model):
         print("View update")
@@ -34,6 +39,9 @@ class Screen(Observer):
 
     def get_phase(self):
         return self.phase
+
+    def get_grid(self):
+        return self.grid_slider
 
     def plot_signal(self,signal,color="red"):
         w,h=self.canvas.winfo_width(),self.canvas.winfo_height()
@@ -76,6 +84,7 @@ class Screen(Observer):
         self.magnitude.pack(fill = "both", expand = "yes")
         self.frequence.pack(fill = "both", expand = "yes")
         self.phase.pack(fill = "both", expand = "yes")
+        self.grid_slider.pack(fill = "both", expand = "yes")
 
     def get_canvas(self):
         return self.canvas

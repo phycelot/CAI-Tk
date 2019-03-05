@@ -6,11 +6,12 @@ class Controller :
         self.view.get_frequence().bind("<B1-Motion>",self.update_frequence)
         self.view.get_phase().bind("<B1-Motion>",self.update_phase)
         self.view.get_canvas().bind("<Configure>",self.resize)
+        self.view.get_grid().bind("<B1-Motion>",self.update_grid)
 
 
     def update_magnitude(self,event):
         print("update_magnitude")
-        x=int(event.widget.get())
+        x=int(event.widget.get())*0.1
         self.model.set_magnitude(x)
         self.model.generate_signal()
 
@@ -31,3 +32,10 @@ class Controller :
         signal=self.model.get_signal()
         self.view.plot_signal(signal)
         self.view.grid()
+
+    def update_grid(self, event):
+        print("update_grid")
+        x=int(event.widget.get())
+        print(x)
+        #self.model.set_grid(x)
+        self.view.grid(x,x)

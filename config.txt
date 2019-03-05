@@ -3,5 +3,4 @@
 *scalePhase.label: Phase
 *scaleFrequence.label: Frequence
 *scaleMagnitude.label: Magnitude
-
-
+*scaleGrid.label: Grille

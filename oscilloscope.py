@@ -9,7 +9,7 @@ from controller import *
 class MenuBar(Frame):
     def __init__(self,parent=None):
         Frame.__init__(self, borderwidth=2)
-        
+
         #file
         button_file = Menubutton(self, text="File")
         button_file.pack(side="left")
@@ -26,11 +26,13 @@ class MenuBar(Frame):
         #help
         button_file1 = Menubutton(self, text="Help")
         menu_file1 = Menu(button_file1)
-        menu_file1.add_command(label='Crédit', underline=0,
+        menu_file1.add_command(label='Crédits', underline=0,
         command=parent.credit)
+        menu_file1.add_command(label='Autres logiciels', underline=0,
+        command=parent.otherSoftware)
         button_file1.pack(side="left")
         button_file1.configure(menu=menu_file1)
-      
+
 class MainWindow(Frame):
     def __init__(self,parent=None,width=200,height=100,bg="red"):
         Frame.__init__(self)
@@ -47,7 +49,7 @@ class MainWindow(Frame):
         view.packing()
         self.model=model
         model.generate_signal()
-        
+
     def new(self):
         pass
 
@@ -65,8 +67,8 @@ class MainWindow(Frame):
             except TypeError as err:
                 messagebox.showerror("error","fichier de configuration mal formé\n".format(err))
                 pass
-            
-    
+
+
     def save(self):
         formats = [('JSON','*.json')]
         f = filedialog.asksaveasfilename(parent=self.parent,filetypes=formats,title="Sauvez l'image sous...")
@@ -83,6 +85,11 @@ class MainWindow(Frame):
 
     def credit(self):
         messagebox.showinfo("Crédit","Un grand pouvoir implique de grande résponsabilité\n\n- OLLIVIER Evan\n -> e5ollivi@enib.fr\n\n- PROUTEAU Antonin\n -> a5proute@enib.fr")
+        pass
+
+
+    def otherSoftware(self):
+        messagebox.showinfo("Autres logiciels","Leeap Cash, le logiciel de billeterie du Gala de l'ENIB. https://leeap.cash/")
         pass
 
 if __name__ =="__main__":
