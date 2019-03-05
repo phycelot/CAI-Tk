@@ -1,6 +1,7 @@
 class Controller :
-    def __init__(self,model,view):
-        self.model=model
+    def __init__(self,modelList,view):
+        self.modelList=modelList
+        self.model=modelList[0]
         self.view=view
         self.view.get_magnitude().bind("<B1-Motion>",self.update_magnitude)
         self.view.get_frequence().bind("<B1-Motion>",self.update_frequence)
@@ -27,7 +28,9 @@ class Controller :
         self.model.generate_signal()
 
     def resize(self, event):
-        #print("resize")
-        signal=self.model.get_signal()
-        self.view.plot_signal(signal)
+        for e in self.modelList:
+            signal=e.get_signal()
+            self.view.plot_signal(signal)
+            pass
         self.view.grid()
+        

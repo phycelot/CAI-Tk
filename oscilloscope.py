@@ -37,16 +37,19 @@ class MainWindow(Frame):
         self.parent=parent
         menubar = MenuBar(self)
         parent.protocol("WM_DELETE_WINDOW", self.exit)
-        model=Generator()
+        model1=Generator()
+        model2=Generator()
+        modelList=[model1,model2]
         view=Screen(root)
         view.grid(12,12)
-        view.update(model)
-        model.attach(view)
-        ctrl=Controller(model,view)
+        view.update(modelList)
+        for e in modelList:
+            e.attach(view)
+            pass
+        ctrl=Controller(modelList,view)
         menubar.pack(expand=1,fill="x",padx=0,pady=0)
         view.packing()
-        self.model=model
-        model.generate_signal()
+        self.modelList=modelList
 
     def open(self):
         formats = [('JSON','*.json')]
@@ -79,7 +82,7 @@ class MainWindow(Frame):
             self.parent.destroy()
 
     def credit(self):
-        messagebox.showinfo("Crédit","Un grand pouvoir implique de grande résponsabilité\n\n- OLLIVIER Evan\n -> e5ollivi@enib.fr\n\n- PROUTEAU Antonin\n -> a5proute@enib.fr")
+        messagebox.showinfo("Crédit","Un grand pouvoir implique de grandes résponsabilités\n\n- OLLIVIER Evan\n -> e5ollivi@enib.fr\n\n- PROUTEAU Antonin\n -> a5proute@enib.fr")
         pass
 
 if __name__ =="__main__":

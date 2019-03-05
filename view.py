@@ -1,10 +1,11 @@
 from tkinter import Canvas,Scale
 from observer import *
+import types
 
 class Screen(Observer):
     def __init__(self,parent,bg="white"):
         self.canvas=Canvas(parent,bg=bg)
-        print("parent",parent.cget("width"),parent.cget("height"))
+        # print("parent",parent.cget("width"),parent.cget("height"))
 
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
@@ -21,10 +22,22 @@ class Screen(Observer):
                          showvalue=0,from_=0,to=5,
                          tickinterval=25)
 
-    def update(self,model):
+    def update(self,modelList):
         print("View update")
-        signal=model.get_signal()
-        self.plot_signal(signal)
+        color=["red","green","blue","orange"]
+        i=0
+        if isinstance(modelList,list):
+            for e in modelList:
+                signal=e.get_signal()
+                self.plot_signal(signal,color[i])
+                i=i+1
+                pass
+            pass
+        else:
+            signal=modelList.get_signal()
+            self.plot_signal(signal,color[i])
+            pass
+        
 
     def get_magnitude(self):
         return self.magnitude
