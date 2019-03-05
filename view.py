@@ -8,8 +8,8 @@ class Screen(Observer):
 
         self.magnitude=Scale(parent,length=250,orient="horizontal",
                          name="scaleMagnitude", sliderlength=20,
-                         showvalue=0,from_=0,to=5,
-                         tickinterval=25)
+                         showvalue=0,from_=0.1,to=10,
+                         tickinterval=1)
 
         self.frequence=Scale(parent,length=250,orient="horizontal",
                          name="scaleFrequence", sliderlength=20,
