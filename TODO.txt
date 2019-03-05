@@ -49,7 +49,7 @@ Affichage et contrôle d'un signal dans l'application (oscilloscope.py) :
  1-3) DONE afficher la courbe d'elongation (oscilloscope.py)
  1-4) DONE contrôler, par des sliders, le signal en frequence, amplitude, phase  (controller.py)
  1-5) réagencer automatiquement les composants graphiques en cas de retaillage de la fenetre 
- 1-6) configurer l'IHM (couleur,texte, positionnement des sliders ...) par un fichier d'options 
+ 1-6) DONE configurer l'IHM (couleur,texte, positionnement des sliders ...) par un fichier d'options 
 
 Deuxieme version : sauvegarde, sortie, menu d'aide
 ==================================================
